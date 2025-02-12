@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class StudentService {
 
@@ -31,9 +37,7 @@ public class StudentService {
         return studentRepository.findById(id)
                 .map(student -> {
                     student.setName(updatedStudent.getName());
-                    if(updatedStudent.getEmail()!=null){
                     student.setEmail(updatedStudent.getEmail());
-                    }
                     student.setAge(updatedStudent.getAge());
                     return studentRepository.save(student);
                 })
@@ -42,5 +46,26 @@ public class StudentService {
 
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
+    }
+
+    // Custom Query Methods
+    public List<Student> findByNameContaining(String name) {
+        return studentRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Student> findByAgeGreaterThan(int age) {
+        return studentRepository.findByAgeGreaterThan(age);
+    }
+
+    public long countStudentsByEmailDomain(String domain) {
+        return studentRepository.countStudentsByEmailDomain(domain);
+    }
+
+    public List<Student> findStudentsByEmailDomain(String domain) {
+        return studentRepository.findStudentsByEmailDomain(domain);
+    }
+
+    public void deleteStudentsByName(String name) {
+        studentRepository.deleteByName(name);
     }
 }
