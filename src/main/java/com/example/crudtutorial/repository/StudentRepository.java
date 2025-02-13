@@ -3,6 +3,7 @@ package com.example.crudtutorial.repository;
 
 import com.example.crudtutorial.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,6 +30,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findStudentsByEmailDomain(@Param("domain") String domain);
 
     // 5. Delete students by name
-    void deleteByName(String name);
+    @Modifying
+    @Query(value ="DELETE from Student s WHERE s.name =:name")
+    void deleteByName(@Param("name")String name);
+//This will work without any condition
+//    void deleteByName(String name);
 }
 
