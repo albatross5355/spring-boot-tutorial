@@ -22,5 +22,7 @@ public class StudentDTO {
     @Min(value = 18, message = "Age must be at least 18")
     @Max(value = 100, message = "Age must be at most 100")
     private int age;
+    private AddressDTO address; // Add Address field
+
 }
 
