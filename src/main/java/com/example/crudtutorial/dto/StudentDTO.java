@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class StudentDTO {
 
     @NotBlank(message = "Name cannot be empty")
